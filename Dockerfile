@@ -50,5 +50,3 @@ USER drone
 RUN mkdir ~/.ssh
 
 COPY invenio-local.conf /home/drone/invenio-local.conf
-
-RUN sudo apt-get install mlocate
