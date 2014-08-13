@@ -21,9 +21,12 @@ RUN sudo apt-get install -y apache2-mpm-worker libapache2-mod-wsgi
 
 RUN locale-gen en_US.UTF-8
 
+RUN mkdir -p /etc/apache2/ssl
 RUN sudo /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
 RUN sudo /usr/sbin/a2dissite default
-RUN sudo /usr/sbin/a2enmod sslRUN pip install nose git+https://bitbucket.org/osso/invenio-devserver.git
+RUN sudo /usr/sbin/a2enmod ssl
+
+RUN pip install nose git+https://bitbucket.org/osso/invenio-devserver.git
 
 
 RUN useradd --create-home --password drone drone
