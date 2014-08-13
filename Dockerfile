@@ -23,7 +23,6 @@ RUN locale-gen en_US.UTF-8
 
 RUN mkdir -p /etc/apache2/ssl
 RUN /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
-RUN /usr/sbin/a2dissite default
 RUN /usr/sbin/a2enmod ssl
 
 RUN pip install nose git+https://bitbucket.org/osso/invenio-devserver.git
