@@ -35,6 +35,7 @@ RUN /usr/sbin/a2enmod ssl
 COPY requirements.txt /home/drone/requirements.txt
 RUN pip install -r /home/drone/requirements.txt
 
+RUN mkdir /root/.ssh
 
 ####
 # Create user
