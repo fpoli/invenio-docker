@@ -41,6 +41,7 @@ RUN mkdir /root/.ssh
 # Create user
 ###
 RUN useradd --create-home --password drone drone
+RUN chown drone:drone /home/drone
 RUN echo "drone ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 ENV HOME /home/drone
 USER drone
