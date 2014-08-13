@@ -36,6 +36,7 @@ COPY requirements.txt /home/drone/requirements.txt
 RUN pip install -r /home/drone/requirements.txt
 
 RUN mkdir /root/.ssh
+RUN /usr/sbin/a2dissite 000-default
 
 ####
 # Create user
@@ -48,4 +49,3 @@ USER drone
 
 RUN mkdir ~/.ssh
 
-RUN /usr/sbin/a2dissite 000-default
