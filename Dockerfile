@@ -25,14 +25,6 @@ RUN mkdir -p /etc/apache2/ssl
 RUN /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
 RUN /usr/sbin/a2enmod ssl
 
-RUN pip install nose git+https://bitbucket.org/osso/invenio-devserver.git
-
-
-RUN useradd --create-home --password drone drone
-RUN echo "drone ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-ENV HOME /home/drone
-USER drone
-
 ################################
 # Install Invenio Requirements #
 ################################
@@ -42,3 +34,14 @@ USER drone
 
 COPY requirements.txt /home/drone/requirements.txt
 RUN pip install -r /home/drone/requirements.txt
+
+
+####
+# Create user
+###
+RUN useradd --create-home --password drone drone
+RUN echo "drone ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+ENV HOME /home/drone
+USER drone
+
+RUN mkdir ~/.ssh
