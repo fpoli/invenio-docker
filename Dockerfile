@@ -47,3 +47,5 @@ ENV HOME /home/drone
 USER drone
 
 RUN mkdir ~/.ssh
+
+RUN /usr/sbin/a2dissite 000-default
