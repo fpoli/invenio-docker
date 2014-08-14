@@ -1,7 +1,6 @@
 FROM ubuntu:14.10
 MAINTAINER Federico Poli "federico.poli@cern.ch"
 
-
 ################
 # Requirements #
 ################
@@ -26,16 +25,6 @@ RUN /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apac
 RUN /usr/sbin/a2enmod ssl
 RUN /usr/sbin/a2dissite 000-default
 
-################################
-# Install Invenio Requirements #
-################################
-
-#RUN pip install -q devpi-client
-#RUN devpi use http://inspireprovisioning.cern.ch/root/inspire --set-cfg
-
-COPY requirements.txt /home/drone/requirements.txt
-RUN pip install -r /home/drone/requirements.txt
-
 ###############
 # Create user #
 ###############
@@ -44,8 +33,23 @@ RUN useradd --create-home --password drone drone
 RUN chown drone:drone /home/drone
 RUN echo "drone ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 ENV HOME /home/drone
+WORKDIR /home/drone
 USER drone
 
 RUN mkdir ~/.ssh
 
-COPY invenio-local.conf /home/drone/invenio-local.conf
+################################
+# Install Invenio Requirements #
+################################
+
+#RUN pip install -q devpi-client
+#RUN devpi use http://inspireprovisioning.cern.ch/root/inspire --set-cfg
+
+ADD requirements.txt /home/drone/requirements.txt
+RUN sudo pip install -r /home/drone/requirements.txt
+
+#################
+# Configuration #
+#################
+
+ADD invenio-local.conf /home/drone/invenio-local.conf
