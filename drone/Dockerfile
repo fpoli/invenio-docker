@@ -16,14 +16,15 @@ RUN apt-get install -y gnuplot clisp automake pstotext gettext
 RUN apt-get install -y postfix
 RUN apt-get install -y git unzip wget
 RUN apt-get install -y libhdf5-dev
-RUN apt-get install -y apache2-mpm-worker libapache2-mod-wsgi
+RUN apt-get install -y apache2-mpm-worker libapache2-mod-wsgi libapache2-mod-xsendfile
 
 RUN locale-gen en_US.UTF-8
 
 RUN mkdir -p /etc/apache2/ssl
 RUN /usr/sbin/make-ssl-cert /usr/share/ssl-cert/ssleay.cnf /etc/apache2/ssl/apache.pem
-RUN /usr/sbin/a2enmod ssl
 RUN /usr/sbin/a2dissite 000-default
+RUN /usr/sbin/a2enmod ssl
+RUN /usr/sbin/a2enmod xsendfile
 
 ###############
 # Create user #
