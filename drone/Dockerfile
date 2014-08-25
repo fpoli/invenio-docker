@@ -11,12 +11,10 @@ RUN apt-get update
 
 RUN apt-get install -y python-dev python-pip
 RUN apt-get install -y mariadb-server libmariadbclient-dev redis-server
-RUN apt-get install -y libssl-dev libxml2-dev libxslt-dev
-RUN apt-get install -y gnuplot clisp automake pstotext gettext
-RUN apt-get install -y postfix
-RUN apt-get install -y git unzip wget
-RUN apt-get install -y libhdf5-dev
-RUN apt-get install -y apache2-mpm-worker libapache2-mod-wsgi libapache2-mod-xsendfile
+RUN apt-get install -y libssl-dev libxml2-dev libxslt-dev git unzip wget
+RUN apt-get install -y gnuplot clisp automake pstotext gettext postfix
+RUN apt-get install -y libhdf5-dev poppler-utils libapache2-mod-xsendfile
+RUN apt-get install -y apache2-mpm-worker libapache2-mod-wsgi
 
 RUN locale-gen en_US.UTF-8
 
