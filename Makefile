@@ -1,23 +1,23 @@
+BASE_IMAGE =  inspirehep/invenio-base
 DRONE_IMAGE = inspirehep/invenio-drone
 TEST_IMAGE =  test
 
+.PHONY: build test test-shell push remove
+
 build:
+	docker build -t $(BASE_IMAGE) base
 	docker build -t $(DRONE_IMAGE) drone
 	docker build -t $(TEST_IMAGE) test
 
-build-no-cache:
-	docker build --no-cache=true -t $(DRONE_IMAGE) drone
-	docker build --no-cache=true -t $(TEST_IMAGE) test
-
-drone-test:
+test:
 	docker run $(TEST_IMAGE)
 
-drone-shell:
+test-shell:
 	docker run -it $(TEST_IMAGE) /bin/bash
 
 push:
-	# FIXME: register to Docker Hub
+	docker push $(BASE_IMAGE)
 	docker push $(DRONE_IMAGE)
 
-remove-images:
-	docker rmi -f $(DRONE_IMAGE) $(TEST_IMAGE)
+remove:
+	docker rmi -f $(BASE_IMAGE) $(DRONE_IMAGE) $(TEST_IMAGE)
